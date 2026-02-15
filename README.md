@@ -9,3 +9,4 @@ Photo gallery for .NET MAUI Day events.
 3. Add an entry to `albums.json` with `id` (matching the folder name), `title`, and `date`
 
 The website will pick up the new album on its next build/deploy.
+
