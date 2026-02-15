@@ -7,6 +7,7 @@ on:
       - '.github/**'
       - 'README.md'
       - 'thumbs/**'
+      - 'medium/**'
 
 jobs:
   update-albums:
@@ -25,8 +26,10 @@ jobs:
           import json, os, glob, subprocess
 
           EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp'}
-          THUMB_WIDTH = 600
-          THUMB_DIR = 'thumbs'
+          SIZES = [
+              ('thumbs', 600),
+              ('medium', 1600),
+          ]
 
           with open('albums.json') as f:
               albums = json.load(f)
@@ -44,27 +47,27 @@ jobs:
               ])
               album['images'] = images
 
-              # Generate thumbnails
-              thumb_folder = os.path.join(THUMB_DIR, folder)
-              os.makedirs(thumb_folder, exist_ok=True)
+              for size_dir, width in SIZES:
+                  out_folder = os.path.join(size_dir, folder)
+                  os.makedirs(out_folder, exist_ok=True)
 
-              for img in images:
-                  src = os.path.join(folder, img)
-                  dst = os.path.join(thumb_folder, img)
-                  if os.path.exists(dst):
-                      continue
-                  try:
-                      subprocess.run([
-                          'convert', src,
-                          '-resize', f'{THUMB_WIDTH}x>',
-                          '-quality', '80',
-                          '-strip',
-                          dst
-                      ], check=True, capture_output=True)
-                  except subprocess.CalledProcessError as e:
-                      print(f'  Warning: failed to generate thumbnail for {src}: {e.stderr.decode()}')
+                  for img in images:
+                      src = os.path.join(folder, img)
+                      dst = os.path.join(out_folder, img)
+                      if os.path.exists(dst):
+                          continue
+                      try:
+                          subprocess.run([
+                              'convert', src,
+                              '-resize', f'{width}x>',
+                              '-quality', '80',
+                              '-strip',
+                              dst
+                          ], check=True, capture_output=True)
+                      except subprocess.CalledProcessError as e:
+                          print(f'  Warning: failed to resize {src} to {width}px: {e.stderr.decode()}')
 
-              print(f'  {folder}: {len(images)} images, thumbnails in {thumb_folder}')
+              print(f'  {folder}: {len(images)} images')
 
           with open('albums.json', 'w') as f:
               json.dump(albums, f, indent=2)
@@ -77,5 +80,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add albums.json thumbs/
+          git add albums.json thumbs/ medium/
           git diff --staged --quiet && echo "No changes" || (git commit -m "Auto-update albums.json and generate thumbnails" && git push)
