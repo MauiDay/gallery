@@ -1,0 +1,54 @@
+name: Update albums.json
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/**'
+      - 'README.md'
+
+jobs:
+  update-albums:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate albums.json
+        run: |
+          python3 -c "
+          import json, os, glob
+
+          EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp'}
+
+          with open('albums.json') as f:
+              albums = json.load(f)
+
+          for album in albums:
+              folder = album['id']
+              if not os.path.isdir(folder):
+                  album['images'] = []
+                  continue
+              images = sorted([
+                  os.path.basename(p)
+                  for p in glob.glob(os.path.join(folder, '*'))
+                  if os.path.splitext(p)[1].lower() in EXTENSIONS
+              ])
+              album['images'] = images
+
+          with open('albums.json', 'w') as f:
+              json.dump(albums, f, indent=2)
+              f.write('\n')
+
+          print(f'Updated {len(albums)} albums')
+          for a in albums:
+              print(f\"  {a['id']}: {len(a.get('images', []))} images\")
+          "
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add albums.json
+          git diff --staged --quiet && echo "No changes" || (git commit -m "Auto-update image lists in albums.json" && git push)
