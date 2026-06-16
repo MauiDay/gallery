@@ -1,5 +1,14 @@
 [
   {
+    "id": "cologne-2017",
+    "title": "Cologne 2017 (XamExpertDay)",
+    "date": "2017-10-06",
+    "images": [
+      "xamexpertday-cologne-2017-001.jpg",
+      "xamexpertday-cologne-2017-002.jpg"
+    ]
+  },
+  {
     "id": "munich-2019",
     "title": "Munich 2019 (XamExpertDay)",
     "date": "2019-06-14",
