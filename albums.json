@@ -1,14 +1,5 @@
 [
   {
-    "id": "cologne-2017",
-    "title": "Cologne 2017 (XamExpertDay)",
-    "date": "2017-10-06",
-    "images": [
-      "xamexpertday-cologne-2017-001.jpg",
-      "xamexpertday-cologne-2017-002.jpg"
-    ]
-  },
-  {
     "id": "munich-2019",
     "title": "Munich 2019 (XamExpertDay)",
     "date": "2019-06-14",
@@ -428,6 +419,23 @@
       "PXL_20260529_112413784.jpg",
       "PXL_20260529_112415577.jpg",
       "PXL_20260529_112439930.jpg"
+    ]
+  },
+  {
+    "id": "cologne-2017",
+    "title": "Cologne 2017 (XamExpertDay)",
+    "date": "2017-10-06",
+    "images": [
+      "xamexpertday-cologne-2017-001.jpg",
+      "xamexpertday-cologne-2017-002.jpg"
+    ]
+  },
+  {
+    "id": "cologne-2018",
+    "title": "Cologne 2018 (XamExpertDay)",
+    "date": "2018-10-19",
+    "images": [
+      "xamexpertday-cologne-2018-001.jpg"
     ]
   }
 ]
