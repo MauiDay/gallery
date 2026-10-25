@@ -1,5 +1,25 @@
 [
   {
+    "id": "cologne-2026",
+    "title": "Cologne 2026",
+    "date": "2026-10-23",
+    "images": [
+      "IMG_2984.jpeg",
+      "IMG_2985.jpeg",
+      "IMG_2986.jpeg",
+      "IMG_2987.jpeg",
+      "IMG_2988.jpeg",
+      "IMG_2989.jpeg",
+      "IMG_2990.jpeg",
+      "IMG_2991.jpeg",
+      "IMG_2992.jpeg",
+      "IMG_2994.jpeg",
+      "IMG_2997.jpeg",
+      "IMG_3010.jpeg",
+      "IMG_5193.jpeg"
+    ]
+  },
+  {
     "id": "skopje-2026",
     "title": "Skopje 2026",
     "date": "2026-09-17",
@@ -79,7 +99,7 @@
   },
   {
     "id": "krakow-2026",
-    "title": "Krak\u00f3w 2026",
+    "title": "Kraków 2026",
     "date": "2026-05-29",
     "images": [
       "IMG_6641.jpeg",
